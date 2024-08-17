@@ -4,14 +4,14 @@ public class DragControler : MonoBehaviour
 {
     private GameObject draggedObject;
     private Vector2 offset;
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         HandleMouseInput(mousePos);
-
+        
         if (isDragging)
         {
             DragObjectToMouse(mousePos);
@@ -37,7 +37,7 @@ public class DragControler : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-        if (hit.collider != null && hit.collider.gameObject.GetComponent<DragableObject>() != null)
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<DraggableObject>() != null)
         {
             draggedObject = hit.collider.gameObject;
             StartDragging(draggedObject, mousePos);
