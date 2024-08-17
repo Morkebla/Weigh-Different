@@ -26,10 +26,10 @@ public class DragControler : MonoBehaviour
             {
                 TryStartDragging(mousePos);
             }
-            else
-            {
-                StopDragging();
-            }
+        }
+        else if (Input.GetMouseButtonUp(0) && isDragging)
+        {
+            StopDragging();
         }
     }
 
@@ -39,13 +39,14 @@ public class DragControler : MonoBehaviour
 
         if (hit.collider != null && hit.collider.gameObject.GetComponent<DragableObject>() != null)
         {
-            StartDragging(hit.collider.gameObject, mousePos);
+            draggedObject = hit.collider.gameObject;
+            StartDragging(draggedObject, mousePos);
         }
     }
 
+
     private void StartDragging(GameObject obj, Vector2 mousePos)
     {
-        draggedObject = obj;
         offset = (Vector2)draggedObject.transform.position - mousePos;
         isDragging = true;
     }
@@ -59,8 +60,10 @@ public class DragControler : MonoBehaviour
     }
 
     private void StopDragging()
-    {       
+    {
+
         draggedObject = null;
         isDragging = false;
     }
+
 }
