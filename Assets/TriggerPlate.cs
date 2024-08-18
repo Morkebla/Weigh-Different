@@ -27,18 +27,15 @@ public class TriggerPlate : MonoBehaviour
     }
     private void Update()
     {
-        
         RecalculateTotalMass();
         CheckMass();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
         DraggableObject draggableObject = other.GetComponent<DraggableObject>();
         if (draggableObject != null)
         {
-            
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -50,11 +47,9 @@ public class TriggerPlate : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-       
         DraggableObject draggableObject = other.GetComponent<DraggableObject>();
         if (draggableObject != null)
         {
-            
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -79,17 +74,20 @@ public class TriggerPlate : MonoBehaviour
         {
             Rigidbody2D rb = trackedObject.Rigidbody;
 
-            if (rb.mass != trackedObject.LastKnownMass)
+            bool isObjectGrounded = rb.velocity.magnitude < 0.1f && !rb.isKinematic;
+            float objectMass = isObjectGrounded ? rb.mass : 0f;
+
+            // Check if the mass has changed
+            if (objectMass != trackedObject.LastKnownMass)
             {
                 Debug.Log("Mass updated for " + rb.gameObject.name + ": new mass = " + rb.mass);
-                trackedObject.LastKnownMass = rb.mass; 
+                trackedObject.LastKnownMass = objectMass;
             }
-
             
             Collider2D objectCollider = rb.GetComponent<Collider2D>();
             if (objectCollider != null && IsObjectPartiallyInside(objectCollider))
             {
-                totalMass += rb.mass;
+                totalMass += objectMass;
             }
         }
 
@@ -98,7 +96,6 @@ public class TriggerPlate : MonoBehaviour
 
     private void CheckMass()
     {
-        
         if (totalMass == PlateMass)
         {
             Debug.Log("Correct total mass detected: " + totalMass);
