@@ -44,7 +44,6 @@ public class DragControler : MonoBehaviour
         }
     }
 
-
     private void StartDragging(GameObject obj, Vector2 mousePos)
     {
         offset = (Vector2)draggedObject.transform.position - mousePos;
@@ -65,5 +64,4 @@ public class DragControler : MonoBehaviour
         draggedObject = null;
         isDragging = false;
     }
-
 }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TriggerPlate : MonoBehaviour
 {
     [SerializeField] private float PlateMass;
-
+    [SerializeField] private Object PlateText;
     private class TrackedObject
     {
         public Rigidbody2D Rigidbody;
@@ -18,8 +19,12 @@ public class TriggerPlate : MonoBehaviour
     }
 
     private List<TrackedObject> objectsInField = new List<TrackedObject>();  
-    private float totalMass = 0f; 
+    private float totalMass = 0f;
 
+    private void Awake()
+    {
+        PlateText.GetComponent<TextMesh>().text = PlateMass.ToString();
+    }
     private void Update()
     {
         
@@ -74,7 +79,6 @@ public class TriggerPlate : MonoBehaviour
         {
             Rigidbody2D rb = trackedObject.Rigidbody;
 
-            // Check if the mass has changed
             if (rb.mass != trackedObject.LastKnownMass)
             {
                 Debug.Log("Mass updated for " + rb.gameObject.name + ": new mass = " + rb.mass);
