@@ -44,11 +44,16 @@ public class DragControler : MonoBehaviour
         }
     }
 
-
     private void StartDragging(GameObject obj, Vector2 mousePos)
     {
         offset = (Vector2)draggedObject.transform.position - mousePos;
         isDragging = true;
+
+        var rigidBody = draggedObject.GetComponent<Rigidbody2D>();
+        if (rigidBody)
+        {
+            rigidBody.isKinematic = true;
+        }
     }
 
     private void DragObjectToMouse(Vector2 mousePos)
@@ -61,9 +66,13 @@ public class DragControler : MonoBehaviour
 
     private void StopDragging()
     {
+        var rigidBody = draggedObject.GetComponent<Rigidbody2D>();
+        if (rigidBody)
+        {
+            rigidBody.isKinematic = false;
+        }
 
         draggedObject = null;
         isDragging = false;
     }
-
 }
