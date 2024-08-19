@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TriggerPlate : MonoBehaviour
 {
     [SerializeField] private float PlateMass;
     [SerializeField] private Object PlateText;
+    [SerializeField] private GameObject  btn;
     private class TrackedObject
     {
         public Rigidbody2D Rigidbody;
@@ -24,6 +25,7 @@ public class TriggerPlate : MonoBehaviour
     private void Awake()
     {
         PlateText.GetComponent<TextMesh>().text = PlateMass.ToString();
+
     }
     private void Update()
     {
@@ -77,7 +79,7 @@ public class TriggerPlate : MonoBehaviour
             bool isObjectGrounded = rb.velocity.magnitude < 0.1f && !rb.isKinematic;
             float objectMass = isObjectGrounded ? rb.mass : 0f;
 
-            // Check if the mass has changed
+             //Check if the mass has changed
             if (objectMass != trackedObject.LastKnownMass)
             {
                 Debug.Log("Mass updated for " + rb.gameObject.name + ": new mass = " + rb.mass);
@@ -99,6 +101,8 @@ public class TriggerPlate : MonoBehaviour
         if (totalMass == PlateMass)
         {
             Debug.Log("Correct total mass detected: " + totalMass);
+            btn.gameObject.SetActive(true);
+            
         }
         else
         {
