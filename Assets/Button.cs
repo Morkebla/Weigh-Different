@@ -12,9 +12,12 @@ public class ButtonScaler : MonoBehaviour
     private Vector2 originalMinusButtonPosition;
     private int currentScaleIndex = 1;
     private float[] scaleMultipliers = { 0.5f, 1f, 2f, 5f };
+    private float[] massValues = { 5f, 50f, 500f, 5000f };
     public Button buttonPlus;
     public Button buttonMinus;
     public float distanceMultiplier = 1.5f;
+    private Rigidbody2D rb;
+    
 
     void Start()
     {
@@ -24,6 +27,9 @@ public class ButtonScaler : MonoBehaviour
 
         originalPlusButtonPosition = buttonPlus.transform.localPosition;
         originalMinusButtonPosition = buttonMinus.transform.localPosition;
+
+        rb = GetComponent<Rigidbody2D>();
+
 
         SetScale(currentScaleIndex);
         UpdateButtonStates();
@@ -53,6 +59,8 @@ public class ButtonScaler : MonoBehaviour
     {
         
         transform.localScale = originalScale * scaleMultipliers[index];
+        rb.mass = massValues[index]; 
+
 
         buttonPlus.transform.localScale = originalPlusButtonScale * scaleMultipliers[index];
         buttonMinus.transform.localScale = originalMinusButtonScale * scaleMultipliers[index];
