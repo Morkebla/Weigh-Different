@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8284420283892928080}
   - component: {fileID: 4618655983497093496}
   - component: {fileID: 262600367997825000}
+  - component: {fileID: 3853221725574037236}
   m_Layer: 0
   m_Name: Dynamic Sprite
   m_TagString: Untagged
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2230722903738129373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d85769a2ec970f4e8c2e4f5a6d7dc13, type: 3}
+  m_Script: {fileID: 11500000, guid: 6af9f576a40821241b23f939af183c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4618655983497093496
@@ -273,6 +274,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3853221725574037236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230722903738129373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb3f76816b1fb748af77d22373c2d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleMultipliers:
+  - 0.5
+  - 1
+  - 2
+  - 5
+  massMultipliers:
+  - 0.1
+  - 1
+  - 10
+  - 100
+  scaleButtonPrefab: {fileID: 526531136489993889, guid: 8c42f09005b938a4c88b72c877fb1f6e, type: 3}
+  scaleButtonUI: {fileID: 0}
 --- !u!1 &5168664921157257205
 GameObject:
   m_ObjectHideFlags: 0
