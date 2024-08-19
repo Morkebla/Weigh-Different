@@ -5,34 +5,32 @@ using UnityEngine.UI;
 
 public class ButtonScaler : MonoBehaviour
 {
-    private Vector2 originalScale;
-    private Vector2 originalPlusButtonScale;
-    private Vector2 originalMinusButtonScale;
-     private Vector2 originalPlusButtonPosition;
-    private Vector2 originalMinusButtonPosition;
+    private Vector2 originalScale;    
+    private float originalMass;
     private int currentScaleIndex = 1;
-    private float[] scaleMultipliers = { 0.5f, 1f, 2f, 5f };
-    private float[] massValues = { 5f, 50f, 500f, 5000f };
-    public Button buttonPlus;
-    public Button buttonMinus;
-    public float distanceMultiplier = 1.5f;
+    public float[] scaleMultipliers = { 0.5f, 1f, 2f, 5f };
+    public float[] massMultipliers = { 0.1f, 1f, 10f, 100f };
+    public ScaleButtonUI scaleButtonPrefab;
+    public ScaleButtonUI scaleButtonUI;   
     private Rigidbody2D rb;
-    
+
+    public int CurrentScaleIndex => currentScaleIndex;
+    public int MaxScaleIndex => scaleMultipliers.Length - 1;
+    public float CurrentScaleMultiplier => scaleMultipliers[currentScaleIndex];
 
     void Start()
     {
-        originalScale = transform.localScale;
-        originalPlusButtonScale = buttonPlus.transform.localScale;
-        originalMinusButtonScale = buttonMinus.transform.localScale;
+        Canvas canvas = FindObjectOfType<Canvas>();
 
-        originalPlusButtonPosition = buttonPlus.transform.localPosition;
-        originalMinusButtonPosition = buttonMinus.transform.localPosition;
+        originalScale = transform.localScale;
+        scaleButtonUI = Instantiate<ScaleButtonUI>(scaleButtonPrefab);
+        scaleButtonUI.buttonScaler = this;
+        scaleButtonUI.transform.parent = canvas.transform;
 
         rb = GetComponent<Rigidbody2D>();
-
+        originalMass = rb.mass;
 
         SetScale(currentScaleIndex);
-        UpdateButtonStates();
     }
 
     public void IncreaseSize()
@@ -41,7 +39,6 @@ public class ButtonScaler : MonoBehaviour
         {
             currentScaleIndex++;
             SetScale(currentScaleIndex);
-            UpdateButtonStates();
         }
     }
 
@@ -51,37 +48,13 @@ public class ButtonScaler : MonoBehaviour
         {
             currentScaleIndex--;
             SetScale(currentScaleIndex);
-            UpdateButtonStates();
         }
     }
 
     private void SetScale(int index)
     {
-        
         transform.localScale = originalScale * scaleMultipliers[index];
-        rb.mass = massValues[index]; 
-
-
-        buttonPlus.transform.localScale = originalPlusButtonScale * scaleMultipliers[index];
-        buttonMinus.transform.localScale = originalMinusButtonScale * scaleMultipliers[index];
-
-        UpdateButtonPositions(index);
-    }
-    private void UpdateButtonPositions(int index)
-    {
-        
-        Vector2 offset = new Vector2(originalScale.x * distanceMultiplier * scaleMultipliers[index], 0);
-
-        
-        buttonPlus.transform.localPosition = originalPlusButtonPosition - offset;
-        buttonMinus.transform.localPosition = originalMinusButtonPosition + offset;
+        rb.mass = originalMass * massMultipliers[index];
     }
 
-
-    private void UpdateButtonStates()
-    {
-        
-        buttonMinus.interactable = currentScaleIndex > 0;
-        buttonPlus.interactable = currentScaleIndex < scaleMultipliers.Length - 1;
-    }
 }
