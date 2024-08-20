@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 477201714465585287, guid: 6cf9722f3b17c0042834a589034adc77, type: 3}
+      propertyPath: m_Mass
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3029767314772672193, guid: 6cf9722f3b17c0042834a589034adc77, type: 3}
       propertyPath: m_Name
       value: pizza
