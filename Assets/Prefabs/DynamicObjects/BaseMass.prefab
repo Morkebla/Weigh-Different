@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2230722903738129373, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_Name
-      value: Mass
+      value: BaseMass
       objectReference: {fileID: 0}
     - target: {fileID: 3101497902031909423, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_FontSize
@@ -36,9 +36,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3630367033772940699, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 5168664921157257205, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_LocalPosition.x
