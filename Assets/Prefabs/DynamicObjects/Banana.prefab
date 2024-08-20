@@ -200,5 +200,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUp: {fileID: 0}
-  ScaleUp: {fileID: 0}
-  ScaleDown: {fileID: 0}
+  scaleUp: {fileID: 0}
+  scaleDown: {fileID: 0}
