@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectsSoundBehaviour : MonoBehaviour
 {
-    DragControler dragControler;
+    DragController dragControler;
 
     [SerializeField] AudioClip pickUp;
     [SerializeField] AudioClip ScaleUp;
@@ -18,7 +18,7 @@ public class ObjectsSoundBehaviour : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        dragControler = FindObjectOfType<DragControler>();
+        dragControler = FindObjectOfType<DragController>();
     }
 
     void Update()

@@ -1,36 +1,38 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class TriggerPlate : MonoBehaviour
 {
     [SerializeField] private float PlateMass;
-    [SerializeField] private Object PlateText;
-    [SerializeField] private GameObject  btn;
+    [SerializeField] private TextMesh PlateText;
+    [SerializeField] private PlateManager plateManager;
+
     private class TrackedObject
     {
         public Rigidbody2D Rigidbody;
-        public float LastKnownMass;
+        public bool IsStable;
 
         public TrackedObject(Rigidbody2D rb)
         {
             Rigidbody = rb;
-            LastKnownMass = rb.mass;
+            IsStable = false;
         }
     }
 
-    private List<TrackedObject> objectsInField = new List<TrackedObject>();  
+    private List<TrackedObject> objectsInField = new List<TrackedObject>();
     private float totalMass = 0f;
 
     private void Awake()
     {
-        PlateText.GetComponent<TextMesh>().text = PlateMass.ToString();
-
+        PlateText.text = PlateMass.ToString();
+        plateManager.RegisterPlate(this);
     }
+
     private void Update()
     {
         RecalculateTotalMass();
-        CheckMass();
+        plateManager.CheckPlates();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -42,7 +44,6 @@ public class TriggerPlate : MonoBehaviour
             if (rb != null)
             {
                 objectsInField.Add(new TrackedObject(rb));
-                Debug.Log("Object entered: " + other.name + " | Current total mass: " + totalMass);
             }
         }
     }
@@ -60,10 +61,9 @@ public class TriggerPlate : MonoBehaviour
                     if (objectsInField[i].Rigidbody == rb)
                     {
                         objectsInField.RemoveAt(i);
-                        break;  
+                        break;
                     }
                 }
-                Debug.Log("Object exited: " + other.name + " | Current total mass: " + totalMass);
             }
         }
     }
@@ -71,43 +71,35 @@ public class TriggerPlate : MonoBehaviour
     private void RecalculateTotalMass()
     {
         totalMass = 0f;
+        bool allObjectsStable = true;
 
         foreach (TrackedObject trackedObject in objectsInField)
         {
             Rigidbody2D rb = trackedObject.Rigidbody;
-
-            bool isObjectGrounded = rb.velocity.magnitude < 0.1f && !rb.isKinematic;
-            float objectMass = isObjectGrounded ? rb.mass : 0f;
-
-             //Check if the mass has changed
-            if (objectMass != trackedObject.LastKnownMass)
+            if (rb.velocity.magnitude < 0.1f && !rb.isKinematic)
             {
-                Debug.Log("Mass updated for " + rb.gameObject.name + ": new mass = " + rb.mass);
-                trackedObject.LastKnownMass = objectMass;
+                trackedObject.IsStable = true;
             }
-            
-            Collider2D objectCollider = rb.GetComponent<Collider2D>();
-            if (objectCollider != null && IsObjectPartiallyInside(objectCollider))
+            else
             {
-                totalMass += objectMass;
+                trackedObject.IsStable = false;
+                allObjectsStable = false;
+            }
+
+            if (trackedObject.IsStable)
+            {
+                Collider2D objectCollider = rb.GetComponent<Collider2D>();
+                if (objectCollider != null && IsObjectPartiallyInside(objectCollider))
+                {
+                    totalMass += rb.mass;
+                }
             }
         }
-
-        Debug.Log("Recalculated total mass: " + totalMass);
     }
 
-    private void CheckMass()
+    public bool IsCorrectMass()
     {
-        if (totalMass == PlateMass)
-        {
-            Debug.Log("Correct total mass detected: " + totalMass);
-            btn.gameObject.SetActive(true);
-            
-        }
-        else
-        {
-            Debug.Log("Incorrect total mass detected: " + totalMass);
-        }
+        return Mathf.Approximately(totalMass, PlateMass);
     }
 
     private bool IsObjectPartiallyInside(Collider2D objectCollider)

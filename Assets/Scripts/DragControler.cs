@@ -1,20 +1,26 @@
 using UnityEngine;
 
-public class DragControler : MonoBehaviour
+public class DragController : MonoBehaviour
 {
     private GameObject draggedObject;
     private Vector2 offset;
     public bool isDragging = false;
 
-    void Update()
+    public float hoverBufferDistance = 5f;
+
+    private void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         HandleMouseInput(mousePos);
-        
+
         if (isDragging)
         {
             DragObjectToMouse(mousePos);
+        }
+        else
+        {
+            CheckForHover(mousePos);
         }
     }
 
@@ -41,6 +47,35 @@ public class DragControler : MonoBehaviour
         {
             draggedObject = hit.collider.gameObject;
             StartDragging(draggedObject, mousePos);
+        }
+    }
+
+    private void CheckForHover(Vector2 mousePos)
+    {
+        ButtonScaler closestScaler = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (ButtonScaler scaler in FindObjectsOfType<ButtonScaler>())
+        {
+            float distance = Vector2.Distance(mousePos, (Vector2)scaler.transform.position);
+
+            if (distance < hoverBufferDistance && distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestScaler = scaler;
+            }
+        }
+
+        foreach (ButtonScaler scaler in FindObjectsOfType<ButtonScaler>())
+        {
+            if (scaler == closestScaler)
+            {
+                scaler.ShowButtons();
+            }
+            else
+            {
+                scaler.HideButtons();
+            }
         }
     }
 

@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlateMass: 0
-  PlateText: {fileID: 8948631682334678055}
-  btn: {fileID: 0}
+  PlateText: {fileID: 2885158660788288281}
+  plateManager: {fileID: 0}
 --- !u!212 &3515650069645269494
 SpriteRenderer:
   m_ObjectHideFlags: 0
