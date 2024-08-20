@@ -6,7 +6,7 @@ public class DragController : MonoBehaviour
     private Vector2 offset;
     public bool isDragging = false;
 
-    public float hoverBufferDistance = 5f;
+    public float hoverBufferDistance = 10f;
 
     private void Update()
     {

@@ -37,6 +37,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3630367033772940699, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630367033772940699, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_AngularDrag
       value: 0.5
       objectReference: {fileID: 0}
@@ -62,11 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.674781
       objectReference: {fileID: 0}
     - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.4681509
       objectReference: {fileID: 0}
     - target: {fileID: 8039743004715535957, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       propertyPath: m_LocalPosition.z
@@ -138,14 +142,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2230722903738129373, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3065622689539265894}
+      addedObject: {fileID: 2426636361565120036}
   m_SourcePrefab: {fileID: 100100000, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
 --- !u!1 &3029767314772672193 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2230722903738129373, guid: c923ff98cb7ab9a438138d195eb95592, type: 3}
   m_PrefabInstance: {fileID: 3818766591537882396}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-3065622689539265894
+--- !u!114 &2426636361565120036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,6 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e5a8a6a05c1e54e97e4543a5541743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUp: {fileID: 0}
-  ScaleUp: {fileID: 0}
-  ScaleDown: {fileID: 0}
+  pickUp: {fileID: 8300000, guid: c8f5c320f4048ae4b82ab74aa7697269, type: 3}
+  scaleUp: {fileID: 8300000, guid: 02ef3b1e90875e247986560c071687f2, type: 3}
+  scaleDown: {fileID: 8300000, guid: 1e5181167f886a943917b9885239694d, type: 3}

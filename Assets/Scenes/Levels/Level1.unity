@@ -203,6 +203,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1189309996403982252, guid: 8550a8d82e7a5ab4096d945f2cdab109, type: 3}
+      propertyPath: pickUp
+      value: 
+      objectReference: {fileID: 8300000, guid: c8f5c320f4048ae4b82ab74aa7697269, type: 3}
+    - target: {fileID: -1189309996403982252, guid: 8550a8d82e7a5ab4096d945f2cdab109, type: 3}
+      propertyPath: scaleUp
+      value: 
+      objectReference: {fileID: 8300000, guid: 02ef3b1e90875e247986560c071687f2, type: 3}
+    - target: {fileID: -1189309996403982252, guid: 8550a8d82e7a5ab4096d945f2cdab109, type: 3}
+      propertyPath: scaleDown
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e5181167f886a943917b9885239694d, type: 3}
     - target: {fileID: 2650523719048354249, guid: 8550a8d82e7a5ab4096d945f2cdab109, type: 3}
       propertyPath: m_Name
       value: 1kg
@@ -285,6 +297,10 @@ PrefabInstance:
       propertyPath: btn
       value: 
       objectReference: {fileID: 1002326993}
+    - target: {fileID: 4247918926813939710, guid: c5d8654a928d7cc4f802044f20995360, type: 3}
+      propertyPath: levelCompleteClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 938987dea9531e847b87dee5d152b1d7, type: 3}
     - target: {fileID: 5495240374661085031, guid: c5d8654a928d7cc4f802044f20995360, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.3656957

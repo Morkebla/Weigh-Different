@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11eb3c6dbf66b024e9eb95507f65601d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlateMass: 0
+  PlateMass: 2
   PlateText: {fileID: 2885158660788288281}
   plateManager: {fileID: 0}
 --- !u!212 &3515650069645269494

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TriggerPlate : MonoBehaviour
 {
@@ -26,13 +25,20 @@ public class TriggerPlate : MonoBehaviour
     private void Awake()
     {
         PlateText.text = PlateMass.ToString();
-        plateManager.RegisterPlate(this);
+        if (plateManager != null)
+        {
+            plateManager.RegisterPlate(this);
+        }
+        else
+        {
+            Debug.LogError("PlateManager reference is missing.");
+        }
     }
 
     private void Update()
     {
         RecalculateTotalMass();
-        plateManager.CheckPlates();
+        plateManager?.CheckPlates();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -41,9 +47,10 @@ public class TriggerPlate : MonoBehaviour
         if (draggableObject != null)
         {
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            if (rb != null && !objectsInField.Exists(o => o.Rigidbody == rb))
             {
                 objectsInField.Add(new TrackedObject(rb));
+                Debug.Log("Object added: " + rb.name + " with mass: " + rb.mass);
             }
         }
     }
@@ -56,13 +63,11 @@ public class TriggerPlate : MonoBehaviour
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                for (int i = 0; i < objectsInField.Count; i++)
+                TrackedObject trackedObject = objectsInField.Find(o => o.Rigidbody == rb);
+                if (trackedObject != null)
                 {
-                    if (objectsInField[i].Rigidbody == rb)
-                    {
-                        objectsInField.RemoveAt(i);
-                        break;
-                    }
+                    objectsInField.Remove(trackedObject);
+                    Debug.Log("Object removed: " + rb.name);
                 }
             }
         }
@@ -71,20 +76,11 @@ public class TriggerPlate : MonoBehaviour
     private void RecalculateTotalMass()
     {
         totalMass = 0f;
-        bool allObjectsStable = true;
 
         foreach (TrackedObject trackedObject in objectsInField)
         {
             Rigidbody2D rb = trackedObject.Rigidbody;
-            if (rb.velocity.magnitude < 0.1f && !rb.isKinematic)
-            {
-                trackedObject.IsStable = true;
-            }
-            else
-            {
-                trackedObject.IsStable = false;
-                allObjectsStable = false;
-            }
+            trackedObject.IsStable = rb.velocity.magnitude < 0.1f && !rb.isKinematic;
 
             if (trackedObject.IsStable)
             {
@@ -92,14 +88,19 @@ public class TriggerPlate : MonoBehaviour
                 if (objectCollider != null && IsObjectPartiallyInside(objectCollider))
                 {
                     totalMass += rb.mass;
+                    Debug.Log($"Adding mass of object: {rb.name}, mass: {rb.mass}. Total mass now: {totalMass}");
                 }
             }
         }
+
+        Debug.Log($"Recalculated Total Mass: {totalMass}, Plate Mass: {PlateMass}");
     }
 
     public bool IsCorrectMass()
     {
-        return Mathf.Approximately(totalMass, PlateMass);
+        bool isCorrect = Mathf.Approximately(totalMass, PlateMass);
+        Debug.Log($"Is Correct Mass: {isCorrect}");
+        return isCorrect;
     }
 
     private bool IsObjectPartiallyInside(Collider2D objectCollider)

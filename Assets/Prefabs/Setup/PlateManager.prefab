@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
-  audioSource: {fileID: 0}
+  levelCompleteClip: {fileID: 8300000, guid: 938987dea9531e847b87dee5d152b1d7, type: 3}
 --- !u!82 &1185711713561930285
 AudioSource:
   m_ObjectHideFlags: 0
