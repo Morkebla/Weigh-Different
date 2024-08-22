@@ -1,2 +1,2 @@
-# gmtk-2024
+# Weigh Different
 GMTK Game Jam 2024
